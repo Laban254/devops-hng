@@ -1,0 +1,25 @@
+sudo apt update
+sudo apt install nginx
+sudo mv index.html /var/www/html/
+
+
+sudo vi /etc/nginx/sites-available/default
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name 185.31.41.85;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo systemctl reload nginx
